@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="data:text/css;charset=utf-8," rel="stylesheet" data-href="css/bootstrap-theme.min.css"
           id="bs-theme-stylesheet"/>
+
     <script type="text/javascript">
         $(document).ready(function(){
             initUI();
@@ -16,12 +17,26 @@
     </script>
     <style type="text/css">
       input[type=button] {
-        width:100%;
+        width:100px;
         height: 50px;
       }
     </style>
   </head>
   <body>
+    <input type="button" id="btnNewPlayer" value="新玩家"/>
+    <table id="summaryTable" border="1" style="width:100%">
+      <tr>
+        <th>名字</th>
+        <th>现金</th>
+        <th>月总收益</th>
+        <th>月总支出</th>
+        <th>月非工资收益</th>
+        <th>房产数</th>
+        <th>公司数</th>
+        <th>股票数</th>
+        <th>操作</th>
+      </tr>
+    </table>
     <table style="height:300px;width:100%">
       <tr>
         <td><div id="txtQuestionNum"></div></td>
@@ -65,6 +80,25 @@
       </table>
       <div id="timeExpend">耗时:</div>
     </div>
-
+    <div id="divNewPlayer" title="欢迎新玩家">
+      <table class="table">
+        <tr>
+          <td>名称</td>
+          <td><input id="newPlayerName" type="text"/></td>
+        </tr>
+        <tr>
+          <td>现金</td>
+          <td><input id="newPlayerCash" type="text"/></td>
+        </tr>
+        <tr>
+          <td>工资</td>
+          <td><input id="newPlayerSalary" type="text"/></td>
+        </tr>
+        <tr>
+          <td>每个孩子支出</td>
+          <td><input id="newPlayerChildCost" type="text"/></td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>
