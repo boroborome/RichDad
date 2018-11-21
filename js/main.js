@@ -1,8 +1,7 @@
 "use strict";
 
 function getPlayer(playerName) {
-  var allPlayers = loadAllPlayers();
-  return findPlayer(playerName, allPlayers);
+  return findPlayer(playerName, game.allPlayers);
 }
 function findPlayer(playerName, allPlayers) {
   for (var i = 0; i < allPlayers.length; i++) {
@@ -14,7 +13,7 @@ function findPlayer(playerName, allPlayers) {
 }
 
 function deletePlayer(playerName) {
-  var allPlayers = loadAllPlayers();
+  var allPlayers = game.allPlayers;
   for (var i = 0; i < allPlayers.length; i++) {
     if (allPlayers[i].name == playerName) {
       allPlayers.splice(i, 1);
@@ -22,7 +21,6 @@ function deletePlayer(playerName) {
     }
   }
   saveAllPlayers(allPlayers);
-  showAllPlayers(allPlayers);
 }
 
 function deletePlayerAction(event) {
@@ -40,22 +38,17 @@ function monthCashPlayerAction(event) {
 }
 
 function monthCashPlayer(name) {
-  var allPlayers = loadAllPlayers();
-  var player = findPlayer(name, allPlayers);
+  var player = getPlayer(name);
   player.cash = player.cash + player.totalIncoming - player.totalOutcoming;
   showAllPlayers(allPlayers);
   saveAllPlayers(allPlayers);
 }
 
-function playSellAction(event) {
-
-}
-
-var newInvestmentDialog = null;
+var game={};
 function initUI() {
   player_initUI();
   investment_initUI();
 
-  var allPlayers = loadAllPlayers();
-  showAllPlayers(allPlayers);
+  game.allPlayers = loadAllPlayers();
+  showAllPlayers(game.allPlayers);
 }

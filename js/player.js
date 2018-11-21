@@ -91,7 +91,7 @@ function newPlayer(event) {
   player.totalIncoming = player.salary;
   player.totalOutcoming = parseInt($("#newPlayerTotalOutcoming").val());
 
-  var allPlayers = loadAllPlayers();
+  var allPlayers = game.allPlayers;
   allPlayers.push(player);
   saveAllPlayers(allPlayers);
   player_newPlayerDialog.dialog("close");

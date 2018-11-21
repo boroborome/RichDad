@@ -72,45 +72,45 @@
       <table class="table">
         <tr>
           <td>买家</td>
-          <td><p id="investmentBuyer"></p></td>
+          <td><p id="buy_investmentBuyer"></p></td>
         </tr>
         <tr>
           <td>资产类型</td>
-          <td><select id="investmentType">
+          <td><select id="buy_investmentType">
                 <option value ="house">房屋</option>
                 <option value ="stock">股票</option>
                 <option value="company">公司</option>
                 <option value="coin">纪念币</option>
               </select></td>
           <td>描述</td>
-          <td><input type="text" id="investmentDescription"/></td>
+          <td><input type="text" id="buy_investmentDescription"/></td>
         </tr>
         <tr>
           <td>单价</td>
-          <td><input type="text" id="investmentPrice"/></td>
+          <td><input type="text" id="buy_investmentPrice"/></td>
           <td>数量</td>
-          <td><input type="text" id="investmentCount"/></td>
+          <td><input type="text" id="buy_investmentCount"/></td>
         </tr>
         <tr>
           <td>总价</td>
-          <td><input type="text" id="investmentTotalPrice"/></td>
+          <td><input type="text" id="buy_investmentTotalPrice"/></td>
         </tr>
         <tr>
           <td>首付</td>
-          <td><input type="text" id="investmentDownPayment"/></td>
+          <td><input type="text" id="buy_investmentDownPayment"/></td>
           <td>贷款</td>
-          <td><input type="text" id="investmentLoan"/></td>
+          <td><input type="text" id="buy_investmentLoan"/></td>
         </tr>
         <tr>
           <td>收益</td>
-          <td><input type="text" id="investmentIncoming"/></td>
+          <td><input type="text" id="buy_investmentIncoming"/></td>
         </tr>
       </table>
     </div>
 
     <div id="divShowInvestments" title="所有资产">
-      姓名:<p id="investmentOwner"></p>
-      <table id="investmentsTable"  class="table">
+      姓名:<p id="investment_show_list_owner"></p>
+      <table id="investment_show_list_table"  class="table">
         <tr>
           <th>资产类型</td>
           <th>描述</th>
@@ -125,7 +125,54 @@
       </table>
     </div>
 
-    <div id="divSellInvestment" title="销售">
+    <div id="divSellInvestment" title="发财了">
+      <table class="table">
+        <tr>
+          <td>卖家</td>
+          <td><p id="investment_sell_owner"></p></td>
+        </tr>
+        <tr>
+          <td>资产类型</td>
+          <td><select id="investment_sell_type">
+                <option value ="house">房屋</option>
+                <option value ="stock">股票</option>
+                <option value="company">公司</option>
+                <option value="coin">纪念币</option>
+              </select></td>
+          <td>描述</td>
+          <td><p id="investment_sell_description"></p></td>
+        </tr>
+        <tr>
+          <td>单价</td>
+          <td><p id="investment_sell_price"></p></td>
+          <td>数量</td>
+          <td><p id="investment_sell_count"></p></td>
+        </tr>
+        <tr>
+          <td>总价</td>
+          <td><p id="investment_sell_total_price"></p></td>
+        </tr>
+        <tr>
+          <td>首付</td>
+          <td><p id="investment_sell_down_payment"></p></td>
+          <td>贷款</td>
+          <td><p id="investment_sell_loan"></p></td>
+        </tr>
+        <tr>
+          <td>收益</td>
+          <td><p id="investment_sell_incoming"></p></td>
+        </tr>
+        <tr>
+          <td>出售单价</td>
+          <td><input type="text" id="investment_sell_out_price"/></td>
+          <td>出售数量</td>
+          <td><input type="text" id="investment_sell_out_count"/></td>
+        </tr>
+        <tr>
+          <td>出售总价</td>
+          <td><p id="investment_sell_out_total_price"></p></td>
+        </tr>
+      </table>
     </div>
   </body>
 </html>
