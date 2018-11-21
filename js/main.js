@@ -1,5 +1,9 @@
 "use strict";
 
+function getPlayer(playerName) {
+  var allPlayers = loadAllPlayers();
+  return findPlayer(playerName, allPlayers);
+}
 function findPlayer(playerName, allPlayers) {
   for (var i = 0; i < allPlayers.length; i++) {
     if (allPlayers[i].name == playerName) {

@@ -57,6 +57,36 @@ function buyInvestmentAction(event) {
   investment_newInvestmentDialog.dialog("open");
 }
 
+function createTrInvestment(investment) {
+  return "<tr><td>" + investment.name
+    + "</td><td>" + investment.description
+    + "</td><td>" + investment.price
+    + "</td><td>" + investment.count
+    + "</td><td>" + investment.totalPrice
+    + "</td><td>" + investment.downPayment
+    + "</td><td>" + investment.loans
+    + "</td><td>" + investment.incoming
+    + "</td><td><input type='button' class='sellInvestment' value='卖'/>"
+    + "</td></tr>"
+}
+
+function showInvestmentsAction(event) {
+  var name = event.target.parentElement.firstChild.innerText;
+  $("#investmentOwner").text(name);
+  $("#investmentsTable tr:gt(0)").remove();
+  var player = getPlayer(name);
+
+  for (var i = 0; i < player.allInvestments.length; i++) {
+    $("#investmentsTable tr:last").after(createTrInvestment(player.allInvestments[i]));
+  }
+  $(".sellInvestment").click(sellInvestmentAction);
+}
+
+function sellInvestmentAction(event) {
+
+}
+
+var invetment_showInvestmentsDialog = null;
 var investment_newInvestmentDialog = null;
 function investment_initUI() {
   investment_newInvestmentDialog = $("#divBuyInvestment").dialog({
@@ -83,4 +113,19 @@ function investment_initUI() {
   $("#investmentDownPayment").spinner({change: recalculateInvestment});
   $("#investmentLoan").spinner().spinner("disable");
   $("#investmentIncoming").spinner();
+
+  invetment_showInvestmentsDialog = $("#divShowInvestments").dialog({
+    autoOpen: false,
+    buttons: [
+      {
+        text: "OK",
+        icon: "ui-icon-check",
+        click: function(){invetment_showInvestmentsDialog.dialog("close");}
+      }
+    ],
+    show: { effect: "blind", duration: 100 },
+    // height: 400,
+    width: 700,
+    modal: true});
+
 }

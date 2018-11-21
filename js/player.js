@@ -49,19 +49,18 @@ function saveAllPlayers(allPlayers) {
   localStorage.setItem("players", JSON.stringify(allPlayers));
 }
 
-
 function createTrPlayerSummary(player) {
   return "<tr><td>" + player.name
     + "</td><td>" + player.cash
     + "</td><td>" + player.totalIncoming
     + "</td><td>" + player.totalOutcoming
     + "</td><td>" + player.totalInvestmentIncoming
-    + "</td><td>" + player.totalHouse
-    + "</td><td>" + player.totalCompany
-    + "</td><td>" + player.totalStock
+    + "</td><td class='showInvestments'>" + player.totalHouse
+    + "</td><td class='showInvestments'>" + player.totalCompany
+    + "</td><td class='showInvestments'>" + player.totalStock
     + "</td><td><input type='button' class='delPlayer' value='x'/>"
     + "<input type='button' class='monthCash' value='月结'/>"
-    + "<input type='button' class='playBuy' value='买'/>"
+    + "<input type='button' class='buyInvestment' value='买'/>"
     + "<input type='button' class='playSell' value='卖'/>"
     + "</td></tr>"
 }
@@ -73,10 +72,10 @@ function showAllPlayers(allPlayers) {
   }
   $(".delPlayer").click(deletePlayerAction);
   $(".monthCash").click(monthCashPlayerAction);
-  $(".playBuy").click(buyInvestmentAction);
+  $(".buyInvestment").click(buyInvestmentAction);
+  $(".showInvestments").click(showInvestmentsAction);
   $(".playSell").click(playSellAction);
 }
-
 
 function openNewPlayerDialog() {
   $("#newPlayerName").val("");
