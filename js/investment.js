@@ -58,7 +58,7 @@ function buyInvestmentAction(event) {
 }
 
 function createTrInvestment(investment) {
-  return "<tr><td>" + investment.name
+  return "<tr><td>" + investment.type
     + "</td><td>" + investment.description
     + "</td><td>" + investment.price
     + "</td><td>" + investment.count
@@ -80,6 +80,7 @@ function showInvestmentsAction(event) {
     $("#investmentsTable tr:last").after(createTrInvestment(player.allInvestments[i]));
   }
   $(".sellInvestment").click(sellInvestmentAction);
+  invetment_showInvestmentsDialog.dialog("open");
 }
 
 function sellInvestmentAction(event) {

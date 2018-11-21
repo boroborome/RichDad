@@ -61,7 +61,6 @@ function createTrPlayerSummary(player) {
     + "</td><td><input type='button' class='delPlayer' value='x'/>"
     + "<input type='button' class='monthCash' value='月结'/>"
     + "<input type='button' class='buyInvestment' value='买'/>"
-    + "<input type='button' class='playSell' value='卖'/>"
     + "</td></tr>"
 }
 
@@ -74,7 +73,6 @@ function showAllPlayers(allPlayers) {
   $(".monthCash").click(monthCashPlayerAction);
   $(".buyInvestment").click(buyInvestmentAction);
   $(".showInvestments").click(showInvestmentsAction);
-  $(".playSell").click(playSellAction);
 }
 
 function openNewPlayerDialog() {
@@ -96,7 +94,7 @@ function newPlayer(event) {
   var allPlayers = loadAllPlayers();
   allPlayers.push(player);
   saveAllPlayers(allPlayers);
-  newPlayerDialog.dialog("close");
+  player_newPlayerDialog.dialog("close");
   showAllPlayers(allPlayers);
 }
 
