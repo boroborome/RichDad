@@ -21,6 +21,7 @@ function deletePlayer(playerName) {
     }
   }
   saveAllPlayers(allPlayers);
+  showAllPlayers(allPlayers);
 }
 
 function deletePlayerAction(event) {
@@ -40,8 +41,8 @@ function monthCashPlayerAction(event) {
 function monthCashPlayer(name) {
   var player = getPlayer(name);
   player.cash = player.cash + player.totalIncoming - player.totalOutcoming;
-  showAllPlayers(allPlayers);
-  saveAllPlayers(allPlayers);
+  showAllPlayers(game.allPlayers);
+  saveAllPlayers(game.allPlayers);
 }
 
 var game={};

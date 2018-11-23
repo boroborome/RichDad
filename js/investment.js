@@ -14,11 +14,11 @@ class Investment {
 };
 
 function investment_dialog_new_recalculate_action() {
-  var price = $("#investmentPrice").spinner().spinner("value");
-  var count = $("#investmentCount").spinner().spinner("value");
-  $("#investmentTotalPrice").spinner().spinner("value", price * count);
-  var downPayment = $("#investmentDownPayment").spinner().spinner("value");
-  $("#investmentLoan").spinner().spinner("value", price * count - downPayment);
+  var price = $("#buy_investmentPrice").spinner().spinner("value");
+  var count = $("#buy_investmentCount").spinner().spinner("value");
+  $("#buy_investmentTotalPrice").spinner().spinner("value", price * count);
+  var downPayment = $("#buy_investmentDownPayment").spinner().spinner("value");
+  $("#buy_investmentLoan").spinner().spinner("value", price * count - downPayment);
 }
 
 function investment_dialog_sell_recalculate_action() {
@@ -104,11 +104,49 @@ function investment_dialog_show_list_sell_action(event) {
   $("#investment_sell_incoming").text(investment.incoming);
   $("#investment_sell_out_price").val(0);
   $("#investment_sell_out_count").val(0);
+  investment_dialog_sell.investment = investment;
   investment_dialog_sell.dialog("open");
 }
 
 function investment_dialog_sell_ok_action() {
+  var investment = investment_dialog_sell.investment;
+  var price = $("#investment_sell_out_price").val();
+  var count = $("#investment_sell_out_count").val();
 
+  var player = investment_dialog_show_list.player;
+  player.cash += price*count;
+  var incoming = investment.incoming * count / investment.count;
+  player.totalIncoming -= incoming;
+  player.totalInvestmentIncoming -= incoming;
+
+  investment.count -= count;
+  if (investment.count <= 0) {
+    investment_delete_investment(investment, player);
+  }
+  saveAllPlayers(game.allPlayers);
+  investment_dialog_sell.dialog("close");
+  investment_dialog_show_list.dialog("close");
+  showAllPlayers(game.allPlayers);
+}
+
+function investment_delete_investment(investment, player) {
+  for (var i = player.allInvestments.length-1; i >= 0; i--) {
+    if (player.allInvestments[i] == investment) {
+      player.allInvestments.splice(i, 1);
+      break;
+    }
+  }
+
+  var investmentType = investment.type;
+  if (investmentType == "house") {
+    player.totalHouse--;
+  } else if (investmentType == "stock") {
+    player.totalStock--;
+  } else if (investmentType == "company") {
+    player.totalCompany--;
+  } else if (investmentType == "coin") {
+    player.totalCoin--;
+  }
 }
 
 var investment_dialog_show_list = null;
