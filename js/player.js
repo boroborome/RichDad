@@ -52,15 +52,20 @@ function saveAllPlayers(allPlayers) {
 function createTrPlayerSummary(player) {
   return "<tr><td>" + player.name
     + "</td><td>" + player.cash
-    + "</td><td>" + player.totalIncoming
-    + "</td><td>" + player.totalOutcoming
+    + "</td><td>" + player.salary
     + "</td><td>" + player.totalInvestmentIncoming
+    + "</td><td>" + player.totalIncoming
+    + "</td><td>" + player.childCount
+    + "</td><td>" + player.childCost
+    + "</td><td>" + player.totalOutcoming
     + "</td><td class='showInvestments'>" + player.totalHouse
     + "</td><td class='showInvestments'>" + player.totalCompany
     + "</td><td class='showInvestments'>" + player.totalStock
+    + "</td><td class='showInvestments'>" + player.totalCoin
     + "</td><td><input type='button' class='delPlayer' value='x'/>"
     + "<input type='button' class='monthCash' value='月结'/>"
     + "<input type='button' class='buyInvestment' value='买'/>"
+    + "<input type='button' class='extalChange' value='额外'/>"
     + "</td></tr>"
 }
 
@@ -69,10 +74,21 @@ function showAllPlayers(allPlayers) {
   for (var i = 0; i <allPlayers.length; i++) {
     $("#summaryTable  tr:last").after(createTrPlayerSummary(allPlayers[i]));
   }
+  $(".showInvestments").click(showInvestmentsAction);
   $(".delPlayer").click(deletePlayerAction);
   $(".monthCash").click(monthCashPlayerAction);
   $(".buyInvestment").click(buyInvestmentAction);
-  $(".showInvestments").click(showInvestmentsAction);
+  $(".extalChange").click(player_extal_change_action);
+}
+
+function player_extal_change_action(event) {
+  var name = event.target.parentElement.parentElement.firstChild.innerText;
+  $("#player_extral_change_name").text(name);
+  $("#player_extral_change_cash").spinner().spinner("value", 0);
+  $("#player_extral_change_outcoming").spinner().spinner("value", 0);
+  $("#player_extral_change_child").spinner().spinner("value", 0);
+
+  player_dialog_extral_change.dialog("open");
 }
 
 function openNewPlayerDialog() {
@@ -80,7 +96,7 @@ function openNewPlayerDialog() {
   $("#newPlayerCash").val("");
   $("#newPlayerSalary").val("");
   $("#newPlayerChildCost").val("");
-  player_newPlayerDialog.dialog( "open" );
+  player_dialog_new.dialog( "open" );
 }
 
 function newPlayer(event) {
@@ -94,14 +110,65 @@ function newPlayer(event) {
   var allPlayers = game.allPlayers;
   allPlayers.push(player);
   saveAllPlayers(allPlayers);
-  player_newPlayerDialog.dialog("close");
+  player_dialog_new.dialog("close");
   showAllPlayers(allPlayers);
 }
 
-var player_newPlayerDialog = null;
+function player_dialog_extral_change_ok_action() {
+  var name = $("#player_extral_change_name").text();
+  var player = getPlayer(name);
+
+  player.cash -= $("#player_extral_change_cash").spinner().spinner("value");
+  var outcoming = $("#player_extral_change_outcoming").spinner().spinner("value");
+
+  var childCount = $("#player_extral_change_child").spinner().spinner("value");
+  player.childCount += childCount;
+  outcoming += (childCount * player.childCost);
+
+  player.totalOutcoming += outcoming;
+  saveAllPlayers(game.allPlayers);
+  showAllPlayers(game.allPlayers);
+  player_dialog_extral_change.dialog("close");
+}
+
+var player_dialog_new = null;
+var player_dialog_extral_change = null;
 function player_initUI() {
+  player_dialog_new = player_init_new_dialog();
+  player_dialog_extral_change = player_init_extral_change_dialog();
+}
+
+function player_init_extral_change_dialog() {
+  $("#player_extral_change_cash").spinner();
+  $("#player_extral_change_outcoming").spinner();
+  $("#player_extral_change_child").spinner();
+  var dialog = $("#devExtralChange").dialog({
+    autoOpen: false,
+    buttons: [
+      {
+        text: "OK",
+        icon: "ui-icon-check",
+        click: player_dialog_extral_change_ok_action
+      },
+      {
+        text: "Cancel",
+        icon: "ui-icon-closethick",
+        click: function(){dialog.dialog("close");}
+      }
+    ],
+    show: { effect: "blind", duration: 100 },
+    // height: 400,
+    width: 550,
+    modal: true});
+  return dialog;
+}
+
+function player_init_new_dialog() {
   $("#btnNewPlayer").click(openNewPlayerDialog);
-  player_newPlayerDialog = $("#divNewPlayer").dialog({
+  $("#newPlayerCash").spinner();
+  $("#newPlayerSalary").spinner();
+  $("#newPlayerChildCost").spinner();
+  return $("#divNewPlayer").dialog({
     autoOpen: false,
     buttons: [
       {
@@ -112,14 +179,11 @@ function player_initUI() {
       {
         text: "Cancel",
         icon: "ui-icon-closethick",
-        click: function(){player_newPlayerDialog.dialog("close");}
+        click: function(){player_dialog_new.dialog("close");}
       }
     ],
     show: { effect: "blind", duration: 100 },
     // height: 400,
     width: 350,
     modal: true});
-  $("#newPlayerCash").spinner();
-  $("#newPlayerSalary").spinner();
-  $("#newPlayerChildCost").spinner();
 }

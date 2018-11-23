@@ -18,9 +18,13 @@
         });
     </script>
     <style type="text/css">
-      input[type=button] {
+      .headButton {
         width:100px;
         height: 50px;
+      }
+      .buttonInTable {
+        width:50px;
+        height: 20px;
       }
       .showInvestments {
         background-color: #11FFFF
@@ -28,17 +32,21 @@
     </style>
   </head>
   <body>
-    <input type="button" id="btnNewPlayer" value="新玩家"/>
+    <input type="button" id="btnNewPlayer" class="headButton" value="新玩家"/>
     <table id="summaryTable" border="1" style="width:100%">
       <tr>
         <th>名字</th>
-        <th>现金</th>
-        <th>总收入</th>
-        <th>总支出</th>
+        <th>工资</th>
         <th>非工资收入</th>
+        <th>总收入</th>
+        <th>孩子个数</th>
+        <th>单个孩子费用</th>
+        <th>总支出</th>
+        <th>现金</th>
         <th>房产数</th>
         <th>公司数</th>
         <th>股票数</th>
+        <th>纪念币数</th>
         <th>操作</th>
       </tr>
     </table>
@@ -171,6 +179,27 @@
         <tr>
           <td>出售总价</td>
           <td><p id="investment_sell_out_total_price"></p></td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="devExtralChange" title="突发事件">
+      <table class="table">
+        <tr>
+          <td>名称</td>
+          <td><p id="player_extral_change_name"/></p></td>
+        </tr>
+        <tr>
+          <td>现金支出</td>
+          <td><input id="player_extral_change_cash" type="text"/></td>
+        </tr>
+        <tr>
+          <td>支出流增加</td>
+          <td><input id="player_extral_change_outcoming" type="text"/></td>
+        </tr>
+        <tr>
+          <td>孩子个数增加</td>
+          <td><input id="player_extral_change_child" type="text"/></td>
         </tr>
       </table>
     </div>
