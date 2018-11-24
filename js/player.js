@@ -40,7 +40,7 @@ function player_appendInvestment(player, investment) {
 function loadAllPlayers() {
   var json = localStorage.getItem("players");
   if (json == null) {
-    json = [];
+    return [];
   }
   return JSON.parse(json);
 }
@@ -51,13 +51,14 @@ function saveAllPlayers(allPlayers) {
 
 function createTrPlayerSummary(player) {
   return "<tr><td>" + player.name
-    + "</td><td>" + player.cash
     + "</td><td>" + player.salary
     + "</td><td>" + player.totalInvestmentIncoming
     + "</td><td>" + player.totalIncoming
     + "</td><td>" + player.childCount
     + "</td><td>" + player.childCost
     + "</td><td>" + player.totalOutcoming
+    + "</td><td>" + (player.totalIncoming - player.totalOutcoming)
+    + "</td><td>" + player.cash
     + "</td><td class='showInvestments'>" + player.totalHouse
     + "</td><td class='showInvestments'>" + player.totalCompany
     + "</td><td class='showInvestments'>" + player.totalStock
