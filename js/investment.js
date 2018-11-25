@@ -103,7 +103,7 @@ function investment_dialog_show_list_sell_action(event) {
   $("#investment_sell_loan").text(investment.loans);
   $("#investment_sell_incoming").text(investment.incoming);
   $("#investment_sell_out_price").val(0);
-  $("#investment_sell_out_count").val(0);
+  $("#investment_sell_out_count").val(1);
   investment_dialog_sell.investment = investment;
   investment_dialog_sell.dialog("open");
 }
@@ -114,7 +114,7 @@ function investment_dialog_sell_ok_action() {
   var count = $("#investment_sell_out_count").val();
 
   var player = investment_dialog_show_list.player;
-  player.cash += price*count;
+  player.cash += （price*count - investment.loans);
   var incoming = investment.incoming * count / investment.count;
   player.totalIncoming -= incoming;
   player.totalInvestmentIncoming -= incoming;
